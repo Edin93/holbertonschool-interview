@@ -20,9 +20,6 @@ def canUnlockAll(boxes):
             if k not in opened:
                 opened.append(k)
         box_index += 1
-    #print('KEYS')
-    #print(sorted(opened))
-    #print('-------------------------------')
     if len(opened) == boxes_length:
         return True
     return False
