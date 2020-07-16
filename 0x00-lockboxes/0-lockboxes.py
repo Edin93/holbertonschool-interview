@@ -7,19 +7,30 @@ Write a method that determines if all the boxes can be opened.
 """
 
 
+def openBox(d, box_index):
+    '''Opens the b_keys of the current box_index box.'''
+    for k in d[box_index].get('b_keys'):
+        if not d[k]['Open']:
+            d[k]['Open'] = True
+            openBox(d, k)
+
+
 def canUnlockAll(boxes):
     '''Returns True if all boxes can be opened, else False.'''
     boxes_length = len(boxes)
-    box_index = 0
-    opened = [0]
-    while (box_index != boxes_length):
-        current_box = boxes[box_index]
-        if len(current_box) == 0:
-            break
-        for k in current_box:
-            if k not in opened:
-                opened.append(k)
-        box_index += 1
-    if len(opened) == boxes_length:
-        return True
-    return False
+    d = {
+        0: {
+            "Open": True,
+            "b_keys": boxes[0]
+        }
+    }
+    for i in range(1, boxes_length):
+        d[i] = {
+            "Open": False,
+            "b_keys": boxes[i]
+        }
+    openBox(d, 0)
+    for v in d.values():
+        if not v['Open']:
+            return False
+    return True
