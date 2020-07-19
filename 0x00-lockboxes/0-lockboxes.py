@@ -11,7 +11,9 @@ import json
 def openBox(d, box_index, boxes_length):
     '''Opens the b_keys of the current box_index box.'''
     for k in d[box_index].get('b_keys'):
-        if (
+        if type(k) is not int:
+            return False
+        elif (
             k >= 0 and k < boxes_length and k != box_index and
             not d[k]['Open']
         ):

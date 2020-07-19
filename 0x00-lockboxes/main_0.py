@@ -49,3 +49,12 @@ print(canUnlockAll(boxes), "\t: False")
 
 boxes = [[], [2], [4]]
 print(canUnlockAll(boxes), "\t: False")
+
+boxes = [[0, 1], [2, 3], {}, None]
+print(canUnlockAll(boxes), "\t: False")
+
+boxes = [[]]
+print(canUnlockAll(boxes), "\t: True")
+
+boxes = [[1, 2], ['hey', 'you'], ['sup']]
+print(canUnlockAll(boxes), "\t: False")
