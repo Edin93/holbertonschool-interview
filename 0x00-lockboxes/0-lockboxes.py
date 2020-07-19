@@ -11,11 +11,9 @@ import json
 def openBox(d, box_index, boxes_length):
     '''Opens the b_keys of the current box_index box.'''
     for k in d[box_index].get('b_keys'):
-        if type(k) is not int:
-            return False
-        elif (
-            k >= 0 and k < boxes_length and k != box_index and
-            not d[k]['Open']
+        if (
+            type(k) is int and k >= 0 and k < boxes_length and
+            k != box_index and not d[k]['Open']
         ):
             d[k]['Open'] = True
             openBox(d, k, boxes_length)
@@ -30,7 +28,7 @@ def canUnlockAll(boxes):
         return False
     d = {
         0: {
-            "Open": True,
+            "Open": True if type(boxes[0]) is list else False,
             "b_keys": boxes[0]
         }
     }
