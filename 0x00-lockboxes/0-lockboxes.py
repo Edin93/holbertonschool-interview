@@ -25,6 +25,13 @@ def canUnlockAll(boxes):
     boxes_length = len(boxes)
     if boxes_length == 0:
         return False
+    for i in boxes:
+        if not isinstance(i, list):
+            return False
+        else:
+            for item in i:
+                if not isinstance(item, int):
+                    return False
     d = {
         0: {
             "Open": True if type(boxes[0]) is list else False,

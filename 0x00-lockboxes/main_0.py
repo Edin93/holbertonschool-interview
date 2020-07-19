@@ -75,7 +75,7 @@ print(canUnlockAll(boxes), "\t: True")
 print('-----------------------------')
 
 boxes = [[1, 2], ['hey', 'you'], ['sup']]
-print(canUnlockAll(boxes), "\t: True")
+print(canUnlockAll(boxes), "\t: False")
 print('-----------------------------')
 
 boxes = [{}, [2, 3], {}, None]
