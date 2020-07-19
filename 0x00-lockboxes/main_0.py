@@ -46,3 +46,6 @@ print(canUnlockAll(boxes), "\t: False")
 
 boxes = [[1], [1], [1]]
 print(canUnlockAll(boxes), "\t: False")
+
+boxes = [[], [2], [4]]
+print(canUnlockAll(boxes), "\t: False")

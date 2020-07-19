@@ -33,6 +33,8 @@ def canUnlockAll(boxes):
         }
     }
     for i in range(1, boxes_length):
+        if not isinstance(boxes[i], list):
+            return False
         d[i] = {
             "Open": False,
             "b_keys": boxes[i]
