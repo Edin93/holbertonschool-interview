@@ -16,7 +16,6 @@ def isInRange(i, boxes_length):
 
 def openBox(boxes, opened, box_index, boxes_length):
     '''Opens the b_keys of the current box_index box.'''
-    opened.append(box_index)
     if not isinstance(boxes[box_index], list):
         raise TypeError('Element is not a list.')
     for k in boxes[box_index]:
@@ -24,7 +23,7 @@ def openBox(boxes, opened, box_index, boxes_length):
             isinstance(k, int) and isInRange(k, boxes_length) and
             k not in opened
         ):
-            # opened.append(k)
+            opened.append(k)
             openBox(boxes, opened, k, boxes_length)
 
 
