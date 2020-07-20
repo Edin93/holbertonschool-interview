@@ -32,13 +32,10 @@ def canUnlockAll(boxes):
     if not isinstance(boxes, list) or not len(boxes):
         return False
     boxes_length = len(boxes)
-    if isinstance(boxes[0], list):
-        opened = [0, ]
-    else:
-        return False
+    opened = [0, ]
     try:
         openBox(boxes, opened, 0, boxes_length)
-    except TypeError:
+    except:
         return False
     if len(opened) != boxes_length:
         return False
