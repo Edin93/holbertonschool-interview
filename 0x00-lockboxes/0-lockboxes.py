@@ -7,46 +7,36 @@ Write a method that determines if all the boxes can be opened.
 """
 
 
-def openBox(d, box_index, boxes_length):
+def isInRange(i, boxes_length):
+    '''Checks if indes of a box is outta the boxes range or not.'''
+    if 0 <= i and i < boxes_length:
+        return True
+    return False
+
+
+def openBox(boxes, opened, box_index, boxes_length):
     '''Opens the b_keys of the current box_index box.'''
-    for k in d[box_index].get('b_keys'):
+    if not isinstance(boxes[box_index], list):
+        raise TypeError('Element is not a list.')
+    for k in boxes[box_index]:
         if (
-            type(k) is int and k >= 0 and k < boxes_length and
-            k != box_index and not d[k]['Open']
+            isinstance(k, int) and isInRange(k, boxes_length) and
+            k not in opened
         ):
-            d[k]['Open'] = True
-            openBox(d, k, boxes_length)
+            opened.append(k)
+            openBox(boxes, opened, k, boxes_length)
 
 
 def canUnlockAll(boxes):
     '''Returns True if all boxes can be opened, else False.'''
-    if type(boxes) is not list:
+    opened = [0, ]
+    if not isinstance(boxes, list) or not len(boxes):
         return False
     boxes_length = len(boxes)
-    if boxes_length == 0:
+    try:
+        openBox(boxes, opened, 0, boxes_length)
+    except TypeError:
         return False
-    for i in boxes:
-        if not isinstance(i, list):
-            return False
-        else:
-            for item in i:
-                if not isinstance(item, int):
-                    return False
-    d = {
-        0: {
-            "Open": True if type(boxes[0]) is list else False,
-            "b_keys": boxes[0]
-        }
-    }
-    for i in range(1, boxes_length):
-        if not isinstance(boxes[i], list):
-            return False
-        d[i] = {
-            "Open": False,
-            "b_keys": boxes[i]
-        }
-    openBox(d, 0, boxes_length)
-    for v in d.values():
-        if not v['Open']:
-            return False
+    if len(opened) != boxes_length:
+        return False
     return True
