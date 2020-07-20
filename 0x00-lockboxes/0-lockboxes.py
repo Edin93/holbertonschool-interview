@@ -37,7 +37,6 @@ def canUnlockAll(boxes):
         openBox(boxes, opened, 0, boxes_length)
     except:
         return False
-    print(opened)
     if len(opened) != boxes_length:
         return False
     return True
