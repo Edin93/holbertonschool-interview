@@ -29,8 +29,26 @@ def openBox(boxes, opened, box_index, boxes_length):
 
 def canUnlockAll(boxes):
     '''Returns True if all boxes can be opened, else False.'''
-    if not isinstance(boxes, list) or not len(boxes):
+    # if not isinstance(boxes, list) or not len(boxes):
+    #     return False
+    # boxes_length = len(boxes)
+    if boxes is None:
         return False
+    if not isinstance(boxes, list):
+        return False
+    if boxes == []:
+        return False
+    if boxes == [[]]:
+        return True
+    if boxes[0] == [] and len(boxes) > 1:
+        return False
+    for i in boxes:
+        if not isinstance(i, list):
+            return False
+        else:
+            for item in i:
+                if not isinstance(item, int):
+                    return False
     boxes_length = len(boxes)
     opened = [0, ]
     try:
