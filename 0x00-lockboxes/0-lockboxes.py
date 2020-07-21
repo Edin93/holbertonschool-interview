@@ -14,29 +14,27 @@ def isInRange(i, boxes_length):
     return False
 
 
-def openBox(boxes, opened, box_index, boxes_length):
-    '''Opens the b_keys of the current box_index box.'''
-    if not isinstance(boxes[box_index], list):
-        raise TypeError('Element is not a list.')
-    for k in boxes[box_index]:
-        if (
-            isinstance(k, int) and isInRange(k, boxes_length) and
-            k not in opened
-        ):
-            opened.append(k)
-            openBox(boxes, opened, k, boxes_length)
-
-
 def canUnlockAll(boxes):
     '''Returns True if all boxes can be opened, else False.'''
     if not isinstance(boxes, list) or not len(boxes):
         return False
     boxes_length = len(boxes)
     opened = [0, ]
-    try:
-        openBox(boxes, opened, 0, boxes_length)
-    except:
-        return False
+    s = [0, ]
+
+    while s:
+        box_index = s.pop()
+        current_box = boxes[box_index]
+        if not isinstance(current_box, list):
+            return False
+        for k in current_box:
+            if (
+                isinstance(k, int) and isInRange(k, boxes_length) and
+                k not in opened
+            ):
+                opened.append(k)
+                s.append(k)
+
     for i in range(boxes_length):
         if i not in opened:
             return False

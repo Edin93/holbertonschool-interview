@@ -136,3 +136,8 @@ print(' ***** EXAMPLE 28 ******')
 boxes = [['leee'], [], [], [], []]
 print(canUnlockAll(boxes), "\t: False")
 print('-----------------------------')
+
+print(' ***** EXAMPLE 29 ******')
+boxes = [[1], [2], [3], [4], [0]]
+print(canUnlockAll(boxes), "\t: True")
+print('-----------------------------')
