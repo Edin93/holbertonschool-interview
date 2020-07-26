@@ -23,10 +23,9 @@ int main(void)
     add_nodeint_end(&head, 402);
     add_nodeint_end(&head, 1024);
     print_listint(head);
-
     printf("-----------------\n");
 
-    insert_node(&head, -5);
+    insert_node(&head, 5000);
 
     print_listint(head);
 
