@@ -22,12 +22,11 @@ int main(void)
     add_nodeint_end(&head, 98);
     add_nodeint_end(&head, 402);
     add_nodeint_end(&head, 1024);
-    head = NULL;
     print_listint(head);
 
     printf("-----------------\n");
 
-    insert_node(&head, 500);
+    insert_node(&head, -5);
 
     print_listint(head);
 
