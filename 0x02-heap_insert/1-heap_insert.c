@@ -6,16 +6,17 @@
  * level_traverse - Goes through the binary tree by level.
  * @root: pointer to the Binary tree root.
  * @node: new node to insert.
+ * Return: Queue representation of the Binary tree.
  */
-void level_traverse(heap_t **root, heap_t *node)
+heap_t **get_queue(heap_t **root, heap_t **q)
 {
-	heap_t *q[1024], *p;
-	int i, j, len;
+	heap_t *p;
+	int i, j;
 
 	for (i = 0; i < 1024; i++)
 		q[i] = NULL;
 	p = *root;
-	j = i = len = 0;
+	j = i = 0;
 	q[0] = p;
 	while (q[i])
 	{
@@ -25,9 +26,7 @@ void level_traverse(heap_t **root, heap_t *node)
 			q[++j] = (q[i])->right;
 		i++;
 	}
-	while (q[len])
-		len++;
-	printf("node = %d\n", node->n);
+	return (q);
 }
 
 /**
@@ -38,7 +37,8 @@ void level_traverse(heap_t **root, heap_t *node)
  */
 heap_t *heap_insert(heap_t **root, int value)
 {
-	heap_t *new, *p;
+	heap_t *new, *p, *q[1024];
+	int len = 0;
 
 	if (!root)
 		return (NULL);
@@ -62,7 +62,10 @@ heap_t *heap_insert(heap_t **root, int value)
 		p->right = new;
 	new->parent = p;
 	printf("--------------------------------------------\n");
-	level_traverse(root, new);
+	get_queue(root, q);
+	while (q[len])
+		len++;
+	printf("LEN OF Queue is = %d\n", len);
 	printf("--------------------------------------------\n");
 	return (new);
 }
