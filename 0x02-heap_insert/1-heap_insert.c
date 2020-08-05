@@ -10,36 +10,23 @@
 void level_traverse(heap_t **root, heap_t *node)
 {
 	heap_t *q[1024], *p;
-	int i, j;
+	int i, j, len;
 
 	for (i = 0; i < 1024; i++)
-	{
 		q[i] = NULL;
-	}
 	p = *root;
-	j = 0;
-	i = 0;
+	j = i = len = 0;
 	q[0] = p;
 	while (q[i])
 	{
 		if ((q[i])->left)
-		{
-			j++;
-			q[j] = (q[i])->left;
-		}
+			q[++j] = (q[i])->left;
 		if ((q[i])->right)
-		{
-			j++;
-			q[j] = (q[i])->right;
-		}
+			q[++j] = (q[i])->right;
 		i++;
 	}
-	j = 0;
-	while (q[j])
-	{
-		printf("Q[%d] = %d\n", j, q[j]->n);
-		j++;
-	}
+	while (q[len])
+		len++;
 	printf("node = %d\n", node->n);
 }
 
