@@ -3,9 +3,21 @@
 #include "binary_trees.h"
 
 /**
- * level_traverse - Goes through the binary tree by level.
+ * cmp_zero - Compares a number to zero.
+ * @n: number to compare to zero.
+ * Return: the given number if >= 0 otherwise 0.
+ */
+int cmp_zero(int n)
+{
+	if (n >= 0)
+		return (n);
+	return (0);
+}
+
+/**
+ * get_queue - Get a queue representation of the Binary tree.
  * @root: pointer to the Binary tree root.
- * @node: new node to insert.
+ * @q: pointer to the queue to fill.
  * Return: Queue representation of the Binary tree.
  */
 heap_t **get_queue(heap_t **root, heap_t **q)
@@ -30,6 +42,42 @@ heap_t **get_queue(heap_t **root, heap_t **q)
 }
 
 /**
+ * insert - Inserts a value into a Max Binary Heap.
+ * @q: a double pointer to the root node of the Heap.
+ * @new: the new node to be inserted.
+ * @len: number of nodes in the tree.
+ * Return: a pointer to the inserted node, or NULL on failure.
+ */
+heap_t *insert(heap_t *q[], heap_t *new, int len)
+{
+	heap_t *tmp;
+	int i = 1, j = 1;
+
+	while (i < len)
+		i = i * 2;
+	i = 1;
+	while (i * 2 < len)
+		i = i * 2;
+	for (j = cmp_zero((i / 2) - 1); j <= cmp_zero(i - 1); j++)
+	{
+		tmp = q[j];
+		if (!tmp->left)
+		{
+			tmp->left = new;
+			new->parent = tmp;
+			break;
+		}
+		else if (!tmp->right)
+		{
+			tmp->right = new;
+			new->parent = tmp;
+			break;
+		}
+	}
+	return (new);
+}
+
+/**
  * heap_insert - Inserts a value into a Max Binary Heap.
  * @root: a double pointer to the root node of the Heap.
  * @value: the value store in the node to be inserted.
@@ -37,7 +85,7 @@ heap_t **get_queue(heap_t **root, heap_t **q)
  */
 heap_t *heap_insert(heap_t **root, int value)
 {
-	heap_t *new, *p, *q[1024];
+	heap_t *new, *q[1024];
 	int len = 0;
 
 	if (!root)
@@ -48,24 +96,9 @@ heap_t *heap_insert(heap_t **root, int value)
 		return (*root);
 	}
 	new = (heap_t *)binary_tree_node(NULL, value);
-	p = *root;
-	while (p->left && p->right)
-	{
-		if (p->left && !p->right)
-			p = p->right;
-		else
-			p = p->left;
-	}
-	if (!p->left && !p->right)
-		p->left = new;
-	else if (p->left && !p->right)
-		p->right = new;
-	new->parent = p;
-	printf("--------------------------------------------\n");
 	get_queue(root, q);
 	while (q[len])
 		len++;
-	printf("LEN OF Queue is = %d\n", len);
-	printf("--------------------------------------------\n");
+	insert(q, new, len);
 	return (new);
 }
