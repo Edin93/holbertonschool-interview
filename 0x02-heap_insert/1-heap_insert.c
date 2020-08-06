@@ -2,17 +2,7 @@
 #include <stdio.h>
 #include "binary_trees.h"
 
-/**
- * cmp_zero - Compares a number to zero.
- * @n: number to compare to zero.
- * Return: the given number if >= 0 otherwise 0.
- */
-int cmp_zero(int n)
-{
-	if (n >= 0)
-		return (n);
-	return (0);
-}
+#define CMPZERO(n) ((n >= 0) ? (n) : (0))
 
 /**
  * get_queue - Get a queue representation of the Binary tree.
@@ -58,22 +48,21 @@ heap_t *insert(heap_t *q[], heap_t *new, int len)
 	i = 1;
 	while (i * 2 < len)
 		i = i * 2;
-	for (j = cmp_zero((i / 2) - 1); j <= cmp_zero(i - 1); j++)
+	for (j = CMPZERO((i / 2) - 1); j <= CMPZERO(i - 1); j++)
 	{
 		tmp = q[j];
 		if (!tmp->left)
 		{
 			tmp->left = new;
-			new->parent = tmp;
 			break;
 		}
 		else if (!tmp->right)
 		{
 			tmp->right = new;
-			new->parent = tmp;
 			break;
 		}
 	}
+	new->parent = tmp;
 	return (new);
 }
 
