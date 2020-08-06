@@ -81,11 +81,11 @@ void swap(heap_t *node)
 		n = tmp->n;
 		tmp->n = tmp->parent->n;
 		tmp->parent->n = n;
-		if (tmp->parent->left)
-			swap(tmp->parent->left);
-		if (tmp->parent->right)
-			swap(tmp->parent->right);
 		tmp = tmp->parent;
+		if (tmp->left && tmp->left->n > tmp->n)
+			swap(tmp->left);
+		if (tmp->right && tmp->right->n > tmp->n)
+			swap(tmp->right);
 	}
 }
 
