@@ -63,41 +63,47 @@ void insert(heap_t *q[], heap_t *new, int len)
 }
 
 /**
- * swap - Swaps node place in Max Heap if it's bigger than its parent.
- * @n1: node to swap with b.
- * @n2: node to swap with a.
+ * swap - swaps 2 nodes from the same subtree.
+ * @p: parent node of a subtree.
+ * @c: child node of a subtree.
+ * Return: pointer to newly swapped node.
  */
-void swap(heap_t **q, int n1, int n2)
+heap_t *swap(heap_t *p, heap_t *c)
 {
 	int n;
 
-	n = q[n1]->n;
-	q[n1]->n = q[n2]->n;
-	q[n2]->n = n;
+	n = p->n;
+	p->n = c->n;
+	c->n = n;
+	return (p);
 }
 
 /**
  * heapify - recursively max heapify a node at i within its children.
- * @arr: nodes queue.
+ * @root: root.
+ * @q: nodes queue.
  * @len: number of nodes in the tree.
  * @i: index of the subtree to max heapify.
+ * @tmp: pointer to the newly placed node.
  */
-void heapify(heap_t **arr, int len, int i)
+void heapify(heap_t **root, heap_t **q, int len, int i, heap_t **tmp)
 {
 	int largest = i;
 	int left = 2 * i + 1;
 	int right = 2 * i + 2;
 
-	if (left < len && arr[left]->n > arr[largest]->n)
+	if (left < len && q[left]->n > q[largest]->n)
 		largest = left;
 
-	if (right < len && arr[right]->n > arr[largest]->n)
+	if (right < len && q[right]->n > q[largest]->n)
 		largest = right;
 
 	if (largest != i)
 	{
-		swap(arr, i, largest);
-		heapify(arr, len, largest);
+		*tmp = swap(q[i], q[largest]);
+		get_queue(root, q);
+		if (i / 2 >= 0)
+			heapify(root, q, len, i / 2, tmp);
 	}
 }
 
@@ -109,7 +115,7 @@ void heapify(heap_t **arr, int len, int i)
  */
 heap_t *heap_insert(heap_t **root, int value)
 {
-	heap_t *new, *q[1024];
+	heap_t *new, *q[1024], **tmp;
 	int len = 0, i;
 
 	if (!root)
@@ -124,7 +130,12 @@ heap_t *heap_insert(heap_t **root, int value)
 	while (q[len])
 		len++;
 	insert(q, new, len);
-	for (i = CMPZERO((len / 2) - 1); i >= 0; i--)
-		heapify(q, len, i);
-	return (new);
+	q[len] = new;
+	len += 1;
+	tmp = &new;
+	for (i = CMPZERO(len / 2 - 1); i >= 0; i--)
+	{
+		heapify(root, q, len, i, tmp);
+	}
+	return (*tmp);
 }
