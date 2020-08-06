@@ -67,6 +67,25 @@ heap_t *insert(heap_t *q[], heap_t *new, int len)
 }
 
 /**
+ * swap - Swaps node place in Max Heap if it's bigger than its parent.
+ * @node: node to swap.
+ */
+void swap(heap_t *node)
+{
+	heap_t *tmp;
+	int n;
+
+	tmp = node;
+	while (tmp->parent && tmp->n > tmp->parent->n)
+	{
+		n = tmp->n;
+		tmp->n = tmp->parent->n;
+		tmp->parent->n = n;
+		tmp = tmp->parent;
+	}
+}
+
+/**
  * heap_insert - Inserts a value into a Max Binary Heap.
  * @root: a double pointer to the root node of the Heap.
  * @value: the value store in the node to be inserted.
@@ -89,5 +108,6 @@ heap_t *heap_insert(heap_t **root, int value)
 	while (q[len])
 		len++;
 	insert(q, new, len);
+	swap(new);
 	return (new);
 }
