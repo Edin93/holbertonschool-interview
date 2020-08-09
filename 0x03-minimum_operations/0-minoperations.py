@@ -27,6 +27,4 @@ def minOperations(n):
             paste += 1
             Hs += chars_to_paste
 
-    if Hs == n:
-        return (copy + paste)
-    return (0)
+    return (copy + paste)
