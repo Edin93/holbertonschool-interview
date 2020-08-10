@@ -24,8 +24,6 @@ def minOperations(n):
         elif (n % (Hs * 2) == 0 and Hs * 2 <= n):
             copy += 1
             chars_to_paste = Hs
-        else:
-            chars_to_paste = chars_to_paste
         if Hs + chars_to_paste <= n:
             paste += 1
             Hs += chars_to_paste
