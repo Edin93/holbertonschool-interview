@@ -15,10 +15,7 @@ def minOperations(n):
     chars_to_paste = 0
 
     while (Hs < n):
-        if Hs == 1:
-            copy += 1
-            chars_to_paste = 1
-        elif (n % Hs == 0):
+        if (n % Hs == 0):
             copy += 1
             chars_to_paste = Hs
         elif (n % (Hs * 2) == 0 and Hs * 2 <= n):
