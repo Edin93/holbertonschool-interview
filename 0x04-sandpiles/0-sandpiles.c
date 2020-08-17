@@ -3,6 +3,26 @@
 #include "sandpiles.h"
 
 /**
+ * print_grid - print a 3x3 grid.
+ * @grid: the grid to print.
+ */
+void print_grid(int grid[3][3])
+{
+	int i, j;
+
+	for (i = 0; i < 3; i++)
+	{
+		for (j = 0; j < 3; j++)
+		{
+			if (j)
+				printf(" ");
+			printf("%d", grid[i][j]);
+		}
+		printf("\n");
+	}
+}
+
+/**
  * is_grid_stable - Check if a grid is stable or not.
  * @grid: the 2 dimentional grid to check.
  * @unstable: a pointer to the variable reflecting the grid stability.
@@ -14,9 +34,14 @@ void is_grid_stable(int grid[3][3], int *unstable)
 	for (i = 0; i < 3; i++)
 	{
 		for (j = 0; j < 3; j++)
-			printf("grid[%d][%d] = %d\n", i, j, grid[i][j]);
+		{
+			if (grid[i][j] > 3)
+			{
+				*unstable = 1;
+				break;
+			}
+		}
 	}
-	printf("unstable = %d\n--------------------------------\n", *unstable);
 }
 /**
  * sandpiles_sum - Computes the sum of 2 sandpiles and make grid1 stable.
@@ -25,13 +50,41 @@ void is_grid_stable(int grid[3][3], int *unstable)
  */
 void sandpiles_sum(int grid1[3][3], int grid2[3][3])
 {
-	int unstable = 0;
-	int tmp[3][3] = {
-		{0, 0, 0},
-		{0, 0, 0},
-		{0, 0, 0}
-	};
-	is_grid_stable(grid1, &unstable);
-	is_grid_stable(grid2, &unstable);
-	is_grid_stable(tmp, &unstable);
+	int unstable = 0, i, j;
+
+	for (i = 0; i < 3; i++)
+	{
+		for (j = 0; j < 3; j++)
+		{
+			grid1[i][j] += grid2[i][j];
+			if (grid1[i][j] > 3)
+				unstable = 1;
+		}
+	}
+
+	while (unstable != 0)
+	{
+		printf("=\n");
+		print_grid(grid1);
+		unstable = 0;
+		for (i = 0; i < 3; i++)
+		{
+			for (j = 0; j < 3; j++)
+			{
+				if (grid1[i][j] > 3)
+				{
+					grid1[i][j] -= 4;
+					if (i - 1 >= 0)
+						grid1[i - 1][j] += 1;
+					if (j + 1 <= 2)
+						grid1[i][j + 1] += 1;
+					if (i + 1 <= 2)
+						grid1[i + 1][j] += 1;
+					if (j - 1 >= 0)
+						grid1[i][j - 1] += 1;
+				}
+			}
+		}
+		is_grid_stable(grid1, &unstable);
+	}
 }
