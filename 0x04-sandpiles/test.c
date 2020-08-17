@@ -43,45 +43,6 @@ void is_grid_stable(int grid[3][3], int *unstable)
 		}
 	}
 }
-
-/**
- * topple_grid - Topples an unstable 3x3 grid.
- * @grid1: the 2 dimentional grid to topple.
- * @grid1_copy: the grid to copy the grid1 into, before an ingoing toppling.
- * @unstable: a pointer to the variable reflecting the grid stability.
- */
-void topple_grid(int grid1[3][3], int grid1_copy[3][3], int *unstable)
-{
-	int i, j;
-
-	for (i = 0; i < 3; i++)
-	{
-		for (j = 0; j < 3; j++)
-			grid1_copy[i][j] = grid1[i][j];
-	}
-	printf("=\n");
-	print_grid(grid1);
-	*unstable = 0;
-	for (i = 0; i < 3; i++)
-	{
-		for (j = 0; j < 3; j++)
-		{
-			if (grid1_copy[i][j] > 3)
-			{
-				grid1[i][j] -= 4;
-				if (i - 1 >= 0)
-					grid1[i - 1][j] += 1;
-				if (j + 1 <= 2)
-					grid1[i][j + 1] += 1;
-				if (i + 1 <= 2)
-					grid1[i + 1][j] += 1;
-				if (j - 1 >= 0)
-					grid1[i][j - 1] += 1;
-			}
-		}
-	}
-}
-
 /**
  * sandpiles_sum - Computes the sum of 2 sandpiles and make grid1 stable.
  * @grid1: a 2 dimentional array of integers between 0 and 3.
@@ -108,7 +69,32 @@ void sandpiles_sum(int grid1[3][3], int grid2[3][3])
 
 	while (unstable != 0)
 	{
-		topple_grid(grid1, grid1_copy, &unstable);
+		for (i = 0; i < 3; i++)
+		{
+			for (j = 0; j < 3; j++)
+				grid1_copy[i][j] = grid1[i][j];
+		}
+		printf("=\n");
+		print_grid(grid1);
+		unstable = 0;
+		for (i = 0; i < 3; i++)
+		{
+			for (j = 0; j < 3; j++)
+			{
+				if (grid1_copy[i][j] > 3)
+				{
+					grid1[i][j] -= 4;
+					if (i - 1 >= 0)
+						grid1[i - 1][j] += 1;
+					if (j + 1 <= 2)
+						grid1[i][j + 1] += 1;
+					if (i + 1 <= 2)
+						grid1[i + 1][j] += 1;
+					if (j - 1 >= 0)
+						grid1[i][j - 1] += 1;
+				}
+			}
+		}
 		is_grid_stable(grid1, &unstable);
 	}
 }
