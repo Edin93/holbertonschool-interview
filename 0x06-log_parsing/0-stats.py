@@ -2,7 +2,6 @@
 '''
 Parses the log from the generator file.
 '''
-import signal
 import sys
 
 
@@ -15,9 +14,12 @@ output = ''
 try:
     for i, line in enumerate(sys.stdin, 1):
         output = ''
-        infos = [int(x) for x in line.split()[-2:]]
-        file_size += infos[1]
-        status_codes[str(infos[0])] += 1
+        split_line = line.split()
+        if len(split_line) > 2:
+            infos = [int(x) for x in split_line[-2:]]
+            file_size += infos[1]
+            if str(infos[0]) in status_codes:
+                status_codes[str(infos[0])] += 1
 
         output += 'File size: {}\n'.format(file_size)
 
