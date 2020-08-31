@@ -2,7 +2,6 @@
 '''
 Parses the log from the generator file.
 '''
-import signal
 import sys
 
 
@@ -12,19 +11,15 @@ status_codes = {
 }
 file_size = 0
 output = ''
-
-
-def main():
-    '''Parses the log display.'''
-    global file_size
-    global output
-    global status_codes
-
+try:
     for i, line in enumerate(sys.stdin, 1):
         output = ''
-        infos = [int(x) for x in line.split()[-2:]]
-        file_size += infos[1]
-        status_codes[str(infos[0])] += 1
+        split_line = line.split()
+        if len(split_line) > 2:
+            infos = [int(x) for x in split_line[-2:]]
+            file_size += infos[1]
+            if str(infos[0]) in status_codes:
+                status_codes[str(infos[0])] += 1
 
         output += 'File size: {}\n'.format(file_size)
 
@@ -35,12 +30,11 @@ def main():
         output = output[:-1]
 
         if i % 10 == 0:
-            print(output)
-            output = ''
-
-
-try:
-    main()
+            if output != '':
+                print(output)
+                output = ''
 except KeyboardInterrupt:
-    print(output)
-    sys.exit(0)
+    pass
+finally:
+    if output != '':
+        print(output)
