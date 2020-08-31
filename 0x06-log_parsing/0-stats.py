@@ -30,9 +30,11 @@ try:
         output = output[:-1]
 
         if i % 10 == 0:
-            print(output)
-            output = ''
+            if output != '':
+                print(output)
+                output = ''
 except KeyboardInterrupt:
     pass
 finally:
-    print(output)
+    if output != '':
+        print(output)
