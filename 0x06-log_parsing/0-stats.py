@@ -1,7 +1,5 @@
 #!/usr/bin/python3
-'''
-Parses the log from the generator file.
-'''
+'''Parses the log from the generator file.'''
 import sys
 
 
@@ -24,7 +22,7 @@ try:
             for k in sorted(status_codes):
                 if status_codes[k] != 0:
                     print('{}: {}'.format(k, status_codes[k]))
-except KeyboardInterrupt:
+except Exception:
     pass
 finally:
     print('File size: {}'.format(file_size))
