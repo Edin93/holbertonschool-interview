@@ -12,7 +12,14 @@ status_codes = {
 }
 file_size = 0
 output = ''
-try:
+
+
+def main():
+    '''Parses the log display.'''
+    global file_size
+    global output
+    global status_codes
+
     for i, line in enumerate(sys.stdin, 1):
         output = ''
         infos = [int(x) for x in line.split()[-2:]]
@@ -30,7 +37,10 @@ try:
         if i % 10 == 0:
             print(output)
             output = ''
+
+
+try:
+    main()
 except KeyboardInterrupt:
-    pass
-finally:
     print(output)
+    sys.exit(0)

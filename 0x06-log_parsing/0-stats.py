@@ -42,5 +42,6 @@ def main():
 try:
     main()
 except KeyboardInterrupt:
+    pass
+finally:
     print(output)
-    sys.exit(0)
