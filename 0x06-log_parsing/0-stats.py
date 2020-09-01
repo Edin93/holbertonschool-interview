@@ -11,7 +11,7 @@ file_size = 0
 
 try:
     for i, line in enumerate(sys.stdin, 1):
-        infos = line.split(' ')
+        infos = line.split()
         if len(infos) > 2:
             try:
                 file_size += int(infos[-1])
@@ -20,9 +20,11 @@ try:
             try:
                 if (
                         infos[-2] in status_codes and
-                        is_instance(int(infos[-2], int))
+                        isinstance(int(infos[-2]), int)
                 ):
                     status_codes[infos[-2]] += 1
+            except Exception:
+                raise Exception
 
         if i % 10 == 0:
             print('File size: {}'.format(file_size))
