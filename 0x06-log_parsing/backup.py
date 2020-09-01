@@ -9,7 +9,7 @@ status_codes = {
 }
 file_size = 0
 i = 1
-sorted_codes = ['200', '301', '400', '401', '403', '404', '405', '500']
+
 try:
     for line in sys.stdin:
         split_line = line.split(' ')
@@ -21,7 +21,7 @@ try:
 
         if i % 10 == 0:
             print('File size: {}'.format(file_size))
-            for k in sorted_codes:
+            for k in sorted(status_codes):
                 if status_codes[k] != 0:
                     print('{}: {}'.format(k, status_codes[k]))
         i += 1
@@ -29,6 +29,6 @@ except KeyboardInterrupt:
     pass
 finally:
     print('File size: {}'.format(file_size))
-    for k in sorted_codes:
+    for k in sorted(status_codes):
         if status_codes[k] != 0:
             print('{}: {}'.format(k, status_codes[k]))
