@@ -27,8 +27,6 @@ try:
                     print('{}: {}'.format(k, status_codes[k]))
         i += 1
 except KeyboardInterrupt:
-    pass
-finally:
     print('File size: {}'.format(file_size))
     for k in sorted(status_codes):
         if status_codes[k] != 0:
