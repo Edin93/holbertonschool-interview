@@ -13,7 +13,7 @@ i = 1
 
 try:
     for line in sys.stdin:
-        split_line = line.split()
+        split_line = line.split(' ')
         if len(split_line) > 2:
             infos = [int(x) for x in split_line[-2:]]
             file_size += infos[1]
