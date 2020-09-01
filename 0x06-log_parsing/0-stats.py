@@ -26,7 +26,7 @@ try:
                 if status_codes[k] != 0:
                     print('{}: {}'.format(k, status_codes[k]))
         i += 1
-except Exception:
+except KeyboardInterrupt:
     pass
 finally:
     print('File size: {}'.format(file_size))
