@@ -7,7 +7,7 @@
  */
 int is_palindrome(unsigned long n)
 {
-	int x, y;
+	unsigned long x, y;
 	unsigned long div = 1;
 
 	if (n < 10)
