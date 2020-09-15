@@ -7,18 +7,20 @@
  */
 int is_palindrome(unsigned long n)
 {
-	unsigned long div = 1;
+	unsigned long x = 0, num = n;
 
-	while (n / (div * 10) >= 1)
-		div *= 10;
+	x = n % 10;
+	n /= 10;
 
-	while (div > 1)
+	while (n != 0)
 	{
-		if (n / div != n % 10)
-			return (0);
-		n = n - ((n / div) * div);
-		n = n / 10;
-		div = div / 100;
+		x *= 10;
+		x += n % 10;
+		n /= 10;
 	}
-	return (1);
+	printf("N = %lu\n", num);
+	printf("X = %lu\n", x);
+	if (x == num)
+		return (1);
+	return (0);
 }
