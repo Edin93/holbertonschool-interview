@@ -18,8 +18,6 @@ int is_palindrome(unsigned long n)
 		x += n % 10;
 		n /= 10;
 	}
-	printf("N = %lu\n", num);
-	printf("X = %lu\n", x);
 	if (x == num)
 		return (1);
 	return (0);
