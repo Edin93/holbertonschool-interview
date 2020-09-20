@@ -35,7 +35,5 @@ def validUTF8(data):
                     b[16:].startswith('10') and b[8:].startswith('10')
             ):
                 return False
-        else:
-            return False
         i += 1
     return True
