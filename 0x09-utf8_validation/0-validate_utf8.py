@@ -16,19 +16,7 @@ def validUTF8(data):
 
     while (i < len(data)):
         n = data[i]
-        b = '{:032b}'.format(n)
-        if n in r1:
-            pass
-        elif n in r2:
-            if not (b[24:].startswith('10')):
-                return False
-        elif n in r3:
-            if not (b[24:].startswith('10')):
-                return False
-        elif n in r4:
-            if not (b[24].startswith('10')):
-                return False
-        else:
+        if n > 127:
             return False
         i += 1
     return True
