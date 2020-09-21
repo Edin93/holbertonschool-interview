@@ -10,10 +10,14 @@ def validUTF8(data):
     """
 
     for n in data:
-        if n > 127:
+        if n in range(0, 128):
+            pass
+        elif n in range(128, 256):
             b = '{:b}'.format(n)
             b = b[::-1]
             b = (b[:8])[::-1]
             if not b.startswith('10'):
                 return False
+        else:
+            return False
     return True
