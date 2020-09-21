@@ -10,9 +10,7 @@ def validUTF8(data):
     """
 
     for n in data:
-        if n in range(0, 128):
-            pass
-        else:
+        if n > 127:
             b = '{:b}'.format(n)
             b = b[::-1]
             b = (b[:8])[::-1]
