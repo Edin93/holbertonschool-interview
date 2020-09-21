@@ -20,13 +20,13 @@ def validUTF8(data):
         if n in r1:
             pass
         elif n in r2:
-            if not (b[16:].startswith('110')):
+            if not (b[24:].startswith('10')):
                 return False
         elif n in r3:
-            if not (b[8:].startswith('1110')):
+            if not (b[24:].startswith('10')):
                 return False
         elif n in r4:
-            if not (b.startswith('11110')):
+            if not (b[24].startswith('10')):
                 return False
         else:
             return False
