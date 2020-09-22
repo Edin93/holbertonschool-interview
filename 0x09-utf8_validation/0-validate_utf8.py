@@ -26,35 +26,27 @@ def validUTF8(data):
     while (i < limit):
         if bytes[i].startswith('0'):
             i += 1
-        else:
-            if bytes[i][:3].startswith('110'):
-                tmp = bytes[i+1:i+2]
-                if not (len(tmp) == 1):
-                    return False
-                if not (tmp[0].startswith('10')):
-                    return False
-                i += 2
-            elif bytes[i][:4].startswith('1110'):
-                tmp = bytes[i+1:i+3]
-                if not (len(tmp) == 2):
-                    return False
-                if not (
-                        tmp[0].startswith('10') and
-                        tmp[1].startswith('10')
-                ):
-                    return False
-                i += 3
-            elif bytes[i][:5].startswith('11110'):
-                tmp = bytes[i+1:i+4]
-                if not (len(tmp) == 3):
-                    return False
-                if not (
-                        tmp[0].startswith('10') and
-                        tmp[1].startswith('10') and
-                        tmp[2].startswith('10')
-                ):
-                    return False
-                i += 4
-            else:
+        elif bytes[i][:3].startswith('110'):
+            tmp = bytes[i+1:i+2]
+            if not (len(tmp) == 1):
                 return False
+            if not isValidByte(tmp):
+                return False
+            i += 2
+        elif bytes[i][:4].startswith('1110'):
+            tmp = bytes[i+1:i+3]
+            if not (len(tmp) == 2):
+                return False
+            if not isValidByte(tmp):
+                return False
+            i += 3
+        elif bytes[i][:5].startswith('11110'):
+            tmp = bytes[i+1:i+4]
+            if not (len(tmp) == 3):
+                return False
+            if not isValidByte(tmp):
+                return False
+            i += 4
+        else:
+            return False
     return True
