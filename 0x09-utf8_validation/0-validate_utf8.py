@@ -1,34 +1,51 @@
 #!/usr/bin/python3
-""" A method that checks if a given data set represents a valid UTF-8 """
+"""
+Contains a function that validate a utf-8 data.
+"""
 
 
-def EightBits(integer):
-    """ A function that:
-    converts an integer to its binary representation,
-    removes the 'Ob' prefixe
-    and returns the full 8 bits of the binary string """
-    binary = bin(integer)[2:]
-    add = '0' * (8 - len(binary))
-    return add + binary
+def intToBin(n):
+    """Converts an integer to binary."""
+    return '{:08b}'.format(n)
+
+
+def isValidByte(data):
+    """Checks if the given data is a valid utf-8 byte for a UTF8 one."""
+    for i in data:
+        if not i.startswith('10'):
+            return False
+    return True
 
 
 def validUTF8(data):
-    """ A method that checks if a given data set represents a valid UTF-8 """
+    """Check if given data is a valid UTF-8 encoding."""
+    bytes = [intToBin(x) for x in data]
     i = 0
-    while i < len(data):
-        if EightBits(data[i])[0] == '0':
+    limit = len(bytes)
+
+    while (i < limit):
+        if bytes[i].startswith('0'):
             i += 1
-        elif (EightBits(data[i])[:3] == '110' and i + 1 < len(data) and
-                EightBits(data[i + 1])[:2] == '10'):
+        elif bytes[i][:3].startswith('110'):
+            tmp = bytes[i+1:i+2]
+            if not (i + 1 < limit):
+                return False
+            if not isValidByte(tmp):
+                return False
             i += 2
-        elif (EightBits(data[i])[:4] == '1110' and i + 2 < len(data) and
-                EightBits(data[i + 1])[:2] == '10' and
-                EightBits(data[i + 1])[:2] == '10'):
+        elif bytes[i][:4].startswith('1110'):
+            tmp = bytes[i+1:i+3]
+            if not (i + 2 < limit):
+                return False
+            if not isValidByte(tmp):
+                return False
             i += 3
-        elif (EightBits(data[i])[:5] == '11110' and i + 3 < len(data) and
-                EightBits(data[i + 1])[:2] == '10' and
-                EightBits(data[i + 2])[:2] == '10' and
-                EightBits(data[i + 3])[:2] == '10'):
+        elif bytes[i][:5].startswith('11110'):
+            tmp = bytes[i+1:i+4]
+            if not (i + 3 < limit):
+                return False
+            if not isValidByte(tmp):
+                return False
             i += 4
         else:
             return False
