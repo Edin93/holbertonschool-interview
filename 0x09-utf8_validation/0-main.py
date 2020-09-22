@@ -20,6 +20,9 @@ print(validUTF8(data))
 data = [255]
 print(validUTF8(data))
 
+data = [128]
+print(validUTF8(data))
+
 # MORE DUMB DATA TESTS
 #data = [127, 256, 781, 33, 49280, 49279]
 #print(validUTF8(data))

@@ -28,21 +28,21 @@ def validUTF8(data):
             i += 1
         elif bytes[i][:3].startswith('110'):
             tmp = bytes[i+1:i+2]
-            if not (i + 1 < limit):
+            if not (len(tmp) == 1):
                 return False
             if not isValidByte(tmp):
                 return False
             i += 2
         elif bytes[i][:4].startswith('1110'):
             tmp = bytes[i+1:i+3]
-            if not (i + 2 < limit):
+            if not (len(tmp) == 2):
                 return False
             if not isValidByte(tmp):
                 return False
             i += 3
         elif bytes[i][:5].startswith('11110'):
             tmp = bytes[i+1:i+4]
-            if not (i + 3 < limit):
+            if not (len(tmp) == 3):
                 return False
             if not isValidByte(tmp):
                 return False
