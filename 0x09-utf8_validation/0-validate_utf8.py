@@ -13,27 +13,36 @@ def validUTF8(data):
     """
     Check if given data is a valid UTF-8 encoding.
     """
-    i = len(data) - 1
+    bytes = [intToBin(x) for x in data]
+    bytes = bytes[::-1]
+    limit = len(bytes)
+    i = 0
 
-    while (i >= 0):
-        b = intToBin(data[i])
+    while (i < limit):
+        b = bytes[i]
         if len(b) <= 7:
             pass
         elif len(b) > 8:
             return False
         elif len(b) == 8:
             j = 0
-            while (i > 0 and intToBin(data[i])[:2].startswith('10') and j < 3):
-                i -= 1
-                j += 1
-            last = intToBin(data[i - 1])
-            if not (
-                    last[:3].startswith('110') or
-                    last[:4].startswith('1110') or
-                    last[:5].startswith('11110')
+            while (
+                    i < limit - 1 and
+                    len(bytes[i]) == 8 and
+                    bytes[i][:2].startswith('10') and
+                    j < 3
             ):
+                i += 1
+                j += 1
+            i += 1
+            last = intToBin(data[i])
+            if not len(last) == 8:
                 return False
-            else:
-                continue
-        i -= 1
+            if not (j == 1 and last[:3].startswith('110')):
+                return False
+            elif not (j == 2 and last[:4].startswith('1110')):
+                return False
+            elif not (j == 3 and last[:5].startswith('11110')):
+                return False
+        i += 1
     return True
