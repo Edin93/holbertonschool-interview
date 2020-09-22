@@ -26,7 +26,7 @@ def validUTF8(data):
             while (i > 0 and intToBin(data[i])[:2].startswith('10') and j < 3):
                 i -= 1
                 j += 1
-            last = data[i - 1]
+            last = intToBin(data[i - 1])
             if not (
                     last[:3].startswith('110') or
                     last[:4].startswith('1110') or
