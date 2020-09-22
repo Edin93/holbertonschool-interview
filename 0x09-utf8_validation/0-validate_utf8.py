@@ -15,6 +15,7 @@ def validUTF8(data):
     """
     bytes = [intToBin(x) for x in data]
     i = len(bytes) - 1
+    bytes_start = ['110', '1110', '11110']
 
     while (i >= 0):
         if not bytes[i].startswith('0'):
@@ -29,11 +30,13 @@ def validUTF8(data):
                 i -= 1
                 j += 1
             last = bytes[i]
-            if (j == 1 and not last[:3].startswith('110')):
+            if (j == 1 and not last[:3].startswith(bytes_start[0])):
                 return False
-            elif (j == 2 and not last[:4].startswith('1110')):
+            elif (j == 2 and not last[:4].startswith(bytes_start[1])):
                 return False
-            elif (j == 3 and not last[:5].startswith('11110')):
+            elif (j == 3 and not last[:5].startswith(bytes_start[2])):
+                return False
+            elif (j == 0):
                 return False
         i -= 1
     return True
