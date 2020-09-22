@@ -19,30 +19,27 @@ def validUTF8(data):
     i = 0
 
     while (i < limit):
-        b = bytes[i]
-        if len(b) <= 7:
+        if len(bytes[i]) <= 7:
             pass
-        elif len(b) > 8:
+        elif len(bytes[i]) > 8:
             return False
-        elif len(b) == 8:
-            j = 0
+        elif len(bytes[i]) == 8:
+            j = 1
+            end = ''
             while (
                     i < limit - 1 and
                     len(bytes[i]) == 8 and
                     bytes[i][:2].startswith('10') and
-                    j < 3
+                    j <= 4
             ):
                 i += 1
                 j += 1
+                end = '1' * j + '0'
             i += 1
             last = bytes[i]
             if not len(last) == 8:
                 return False
-            if not (j == 1 and last[:3].startswith('110')):
-                return False
-            elif not (j == 2 and last[:4].startswith('1110')):
-                return False
-            elif not (j == 3 and last[:5].startswith('11110')):
+            if not (last[:j].startswith(end)):
                 return False
         i += 1
     return True
