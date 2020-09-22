@@ -9,31 +9,35 @@ def intToBin(n):
     return '{:08b}'.format(n)
 
 
-def validUTF8(data):
-    """
-    Check if given data is a valid UTF-8 encoding.
-    """
-    bytes = [intToBin(x) for x in data]
-    i = len(bytes) - 1
+def isValidByte(data):
+    """Checks if the given data is a valid utf-8 byte."""
+    if not(len(data)):
+        return False
+    for i in data:
+        if not i.startswith('10'):
+            return False
+    return True
 
-    while (i >= 0):
+
+def validUTF8(data):
+    """Check if given data is a valid UTF-8 encoding."""
+    bytes = [intToBin(x) for x in data]
+    i = 0
+    limit = len(bytes)
+
+    while (i < limit):
         if not bytes[i].startswith('0'):
-            if bytes[i].startswith('11'):
-                return False
-            j = 0
-            while (
-                    i > 0 and
-                    bytes[i][:2].startswith('10') and
-                    j < 3
-            ):
-                i -= 1
-                j += 1
-            last = bytes[i]
-            if (j == 1 and not last[:3].startswith('110')):
-                return False
-            elif (j == 2 and not last[:4].startswith('1110')):
-                return False
-            elif (j == 3 and not last[:5].startswith('11110')):
-                return False
-        i -= 1
+            if bytes[i][:3].startswith('110'):
+                if not isValidByte(bytes[i+1:i+2]):
+                    return False
+                i += 2
+            elif bytes[i][:4].startswith('1110'):
+                if not isValidByte(bytes[i+1:i+3]):
+                    return False
+                i += 3
+            elif bytes[i][:5].startswith('11110'):
+                if not isValidByte(bytes[i+1:i+4]):
+                    return False
+                i += 4
+        i += 1
     return True
