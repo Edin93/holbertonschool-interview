@@ -27,8 +27,6 @@ def validUTF8(data):
                 i -= 1
                 j += 1
             last = bytes[i]
-            if last.startswith('0'):
-                return False
             if (j == 0 and not last.startswith('0')):
                 return False
             elif (j == 1 and not last[:3].startswith('110')):
