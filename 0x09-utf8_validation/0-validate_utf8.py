@@ -18,15 +18,23 @@ def validUTF8(data):
 
     while (i >= 0):
         b = intToBin(data[i])
+        if i == 0 and len(b) != 7:
+            return False
         if len(b) <= 7:
             pass
-        else:
+        elif len(b) > 8:
+            return False
+        elif len(b) == 8:
             j = 0
             while (i > 0 and intToBin(data[i])[:2].startswith('10') and j < 3):
                 i -= 1
                 j += 1
             last = data[i - 1]
-            if not (last in last_byte_endings):
+            if not (
+                    last[:3].startswith('110') or
+                    last[:4].startswith('1110') or
+                    last[:5].startswith('11110')
+            ):
                 return False
             else:
                 continue
