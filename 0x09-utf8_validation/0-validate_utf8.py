@@ -6,7 +6,8 @@ Contains a function that validate a utf-8 data.
 
 def intToBin(n):
     """Converts an integer to binary."""
-    return '{:08b}'.format(n)
+    b = '{:08b}'.format(n)
+    return b[-8:]
 
 
 def isValidByte(data):
