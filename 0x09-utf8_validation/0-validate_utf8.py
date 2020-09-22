@@ -18,6 +18,8 @@ def validUTF8(data):
 
     while (i >= 0):
         if not bytes[i].startswith('0'):
+            if bytes[i].startswith('11'):
+                return False
             j = 0
             while (
                     i > 0 and
@@ -27,9 +29,7 @@ def validUTF8(data):
                 i -= 1
                 j += 1
             last = bytes[i]
-            if (j == 0 and not last.startswith('0')):
-                return False
-            elif (j == 1 and not last[:3].startswith('110')):
+            if (j == 1 and not last[:3].startswith('110')):
                 return False
             elif (j == 2 and not last[:4].startswith('1110')):
                 return False
