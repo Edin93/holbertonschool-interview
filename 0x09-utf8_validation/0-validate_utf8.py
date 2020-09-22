@@ -10,9 +10,7 @@ def intToBin(n):
 
 
 def isValidByte(data):
-    """Checks if the given data is a valid utf-8 byte."""
-    if not(len(data)):
-        return False
+    """Checks if the given data is a valid utf-8 byte for a UTF8 one."""
     for i in data:
         if not i.startswith('10'):
             return False
@@ -48,5 +46,6 @@ def validUTF8(data):
                 if not isValidByte(tmp):
                     return False
                 i += 4
-        i += 1
+        else:
+            i += 1
     return True
