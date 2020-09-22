@@ -35,7 +35,7 @@ def validUTF8(data):
                 i += 1
                 j += 1
             i += 1
-            last = intToBin(data[i])
+            last = bytes[i]
             if not len(last) == 8:
                 return False
             if not (j == 1 and last[:3].startswith('110')):
