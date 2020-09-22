@@ -4,20 +4,31 @@ Contains a function that validate a utf-8 data.
 """
 
 
+def intToBin(n):
+    """Converts an integer to binary."""
+    return '{:b}'.format(n)
+
+
 def validUTF8(data):
     """
     Check if given data is a valid UTF-8 encoding.
     """
+    i = len(data) - 1
+    last_byte_endings = ['110', '1110', '11110']
 
-    for n in data:
-        if n in range(0, 128):
+    while (i >= 0):
+        b = intToBin(data[i])
+        if len(b) <= 7:
             pass
-        elif n in range(128, 256):
-            b = '{:b}'.format(n)
-            b = b[::-1]
-            b = (b[:8])[::-1]
-            if not b.startswith('10'):
-                return False
         else:
-            return False
+            j = 0
+            while (i > 0 and intToBin(data[i])[:2].startswith('10') and j < 3):
+                i -= 1
+                j += 1
+            last = data[i - 1]
+            if not (last in last_byte_endings):
+                return False
+            else:
+                continue
+        i -= 1
     return True
