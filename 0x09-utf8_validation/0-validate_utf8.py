@@ -15,31 +15,32 @@ def validUTF8(data):
     """
     bytes = [intToBin(x) for x in data]
     bytes = bytes[::-1]
-    limit = len(bytes)
-    i = 0
+    i = len(bytes) - 1
 
-    while (i < limit):
+    while (i >= 0):
         if len(bytes[i]) <= 7:
             pass
         elif len(bytes[i]) > 8:
             return False
         elif len(bytes[i]) == 8:
-            j = 1
-            end = ''
+            j = 0
             while (
-                    i < limit - 1 and
+                    i > 0 and
                     len(bytes[i]) == 8 and
                     bytes[i][:2].startswith('10') and
-                    j <= 4
+                    j < 3
             ):
-                i += 1
+                i -= 1
                 j += 1
-                end = '1' * j + '0'
-            i += 1
+            i -= 1
             last = bytes[i]
             if not len(last) == 8:
                 return False
-            if not (last[:j].startswith(end)):
+            if not (j == 1 and last[:3].startswith('110')):
                 return False
-        i += 1
+            elif not (j == 2 and last[:4].startswith('1110')):
+                return False
+            elif not (j == 3 and last[:5].startswith('11110')):
+                return False
+        i -= 1
     return True
