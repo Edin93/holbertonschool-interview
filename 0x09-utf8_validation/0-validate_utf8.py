@@ -18,7 +18,7 @@ def validUTF8(data):
 
     while (i >= 0):
         b = intToBin(data[i])
-        if i == 0 and len(b) != 7:
+        if i == 0 and len(b) > 7:
             return False
         if len(b) <= 7:
             pass
