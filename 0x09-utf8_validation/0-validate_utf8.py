@@ -20,9 +20,7 @@ def validUTF8(data):
     while (i >= 0):
         if len(bytes[i]) <= 7:
             pass
-        elif len(bytes[i]) > 8:
-            return False
-        elif len(bytes[i]) == 8:
+        else:
             j = 0
             while (
                     i > 0 and
