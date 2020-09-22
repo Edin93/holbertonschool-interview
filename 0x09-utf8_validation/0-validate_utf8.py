@@ -14,7 +14,6 @@ def validUTF8(data):
     Check if given data is a valid UTF-8 encoding.
     """
     bytes = [intToBin(x) for x in data]
-    bytes = bytes[::-1]
     i = len(bytes) - 1
 
     while (i >= 0):
