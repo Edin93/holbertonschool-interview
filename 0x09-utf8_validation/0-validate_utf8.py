@@ -14,12 +14,9 @@ def validUTF8(data):
     Check if given data is a valid UTF-8 encoding.
     """
     i = len(data) - 1
-    last_byte_endings = ['110', '1110', '11110']
 
     while (i >= 0):
         b = intToBin(data[i])
-        if i == 0 and len(b) > 7:
-            return False
         if len(b) <= 7:
             pass
         elif len(b) > 8:
