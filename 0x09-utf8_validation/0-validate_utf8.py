@@ -46,6 +46,7 @@ def validUTF8(data):
                 if not isValidByte(tmp):
                     return False
                 i += 4
-        else:
-            i += 1
+            else:
+                return False
+        i += 1
     return True
