@@ -5,7 +5,7 @@
  * @line: A pointer to the array of integers to manipulate.
  * Return: nothing.
  */
-void push_to_left(int *line);
+void push_to_left(int *line)
 {
 	int j = 0, z = 0;
 
@@ -68,6 +68,35 @@ int slide_to_left(int *line, size_t size)
 }
 
 /**
+ * push_to_right - push non-zero elements to the right edge of the array.
+ * @line: A pointer to the array of integers to manipulate.
+ * @size: The number of the array's elements.
+ * Return: nothing.
+ */
+void push_to_right(int *line, int size)
+{
+	int j = size - 1, z = size - 1;
+
+	while (line[j])
+	{
+		if (line[j] != 0)
+			j--;
+		else
+		{
+			z = j;
+			while (line[z] && line[z] == 0)
+				z--;
+			if (line[z])
+			{
+				line[j] = line[z];
+				line[z] = 0;
+			}
+		}
+	}
+}
+
+
+/**
  * slide_to_right - It slides and merges an array of integers to the right.
  * @line: A pointer to the array of integers to manipulate.
  * @size: The number of the array's elements.
@@ -102,6 +131,8 @@ int slide_to_right(int *line, size_t size)
 			i -= 1;
 		}
 	}
+
+	push_to_right(line, (int)size);
 
 	return (1);
 }
