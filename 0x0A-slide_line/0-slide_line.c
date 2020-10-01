@@ -8,7 +8,8 @@
  */
 void push_to_left(int *line, size_t size)
 {
-	int j = 0, z = 0;
+	int j = 0;
+	int z = 0;
 
 	while (j < (int)size)
 	{
@@ -74,23 +75,22 @@ int slide_to_left(int *line, size_t size)
  */
 void push_to_right(int *line, int size)
 {
-	int j = size - 1, z = size - 1;
+	int j = (int)size - 1;
+	int z = j;
 
-	while (line[j])
+	while (j >= 0)
 	{
-		if (line[j] != 0)
+		while (j - 1 >= 0 && line[j] != 0)
 			j--;
-		else
+		z = j;
+		while (z - 1 > 0 && line[z] == 0)
+			z--;
+		if (z > 0)
 		{
-			z = j;
-			while (line[z] && line[z] == 0)
-				z--;
-			if (line[z])
-			{
-				line[j] = line[z];
-				line[z] = 0;
-			}
+			line[j] = line[z];
+			line[z] = 0;
 		}
+		j--;
 	}
 }
 
@@ -129,7 +129,7 @@ int slide_to_right(int *line, size_t size)
 		}
 	}
 
-	/* push_to_right(line, (int)size); */
+	push_to_right(line, (int)size);
 
 	return (1);
 }
