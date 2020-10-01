@@ -83,11 +83,11 @@ void push_to_right(int *line, int size)
 		while (j - 1 >= 0 && line[j] != 0)
 			j--;
 		z = j;
-		while (z - 1 > 0 && line[z] == 0)
+		while (z > 0 && line[z] == 0)
 			z--;
-		if (z > 0)
+		line[j] = line[z];
+		if (j > 0)
 		{
-			line[j] = line[z];
 			line[z] = 0;
 		}
 		j--;
