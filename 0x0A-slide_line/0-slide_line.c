@@ -12,16 +12,17 @@ void push_to_left(int *line, size_t size)
 
 	while (j < (int)size)
 	{
-		if (line[j] != 0)
+		while (j + 1 < (int)size && line[j] != 0)
 			j++;
-		else
+		z = j;
+		while (z + 1 < (int)size && line[z] == 0)
+			z++;
+		if (z < (int)size - 1)
 		{
-			z = j;
-			while (z < (int)size && line[z] == 0)
-				z++;
 			line[j] = line[z];
 			line[z] = 0;
 		}
+		j++;
 	}
 }
 
@@ -60,7 +61,7 @@ int slide_to_left(int *line, size_t size)
 		}
 	}
 
-	/* push_to_left(line, size); */
+	push_to_left(line, size);
 
 	return (1);
 }
