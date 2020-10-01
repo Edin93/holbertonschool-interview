@@ -107,7 +107,7 @@ int slide_to_right(int *line, size_t size)
 
 	while (i >= 0)
 	{
-		while (i - 1 > 0 && line[i] == 0)
+		while (i > 0 && line[i] == 0)
 			i--;
 		if (line[tmp] == 0)
 		{
