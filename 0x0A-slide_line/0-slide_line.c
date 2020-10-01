@@ -3,26 +3,24 @@
 /**
  * push_to_left - push non-zero elements to the left edge of the array.
  * @line: A pointer to the array of integers to manipulate.
+ * @size: The number of the array's elements.
  * Return: nothing.
  */
-void push_to_left(int *line)
+void push_to_left(int *line, size_t size)
 {
 	int j = 0, z = 0;
 
-	while (line[j])
+	while (j < (int)size)
 	{
 		if (line[j] != 0)
 			j++;
 		else
 		{
 			z = j;
-			while (line[z] && line[z] == 0)
+			while (z < (int)size && line[z] == 0)
 				z++;
-			if (line[z])
-			{
-				line[j] = line[z];
-				line[z] = 0;
-			}
+			line[j] = line[z];
+			line[z] = 0;
 		}
 	}
 }
@@ -35,34 +33,34 @@ void push_to_left(int *line)
  */
 int slide_to_left(int *line, size_t size)
 {
-	size_t i, start, end, tmp;
+	int tmp = 0;
+	int i = 1;
 
-	start = 0;
-	end = size - 1;
-	tmp = start;
-	i = start + 1;
-
-	while (line[i])
+	while (i < (int)size)
 	{
-		while (i <= end && line[i] == 0)
-			i += 1;
-		if (line[tmp] == line[i])
+		while (i + 1 < (int)size && line[i] == 0)
+			i++;
+		if (line[tmp] == 0)
+		{
+			line[tmp] = line[i];
+			line[i] = 0;
+			i++;
+		}
+		else if (line[tmp] == line[i] && line[i] != 0)
 		{
 			line[tmp] = line[tmp] * 2;
 			line[i] = 0;
 			tmp = i;
-			while (tmp + 1 <= end && line[tmp] == 0)
-				tmp += 1;
-			i = tmp + 1;
+			i++;
 		}
 		else
 		{
 			tmp = i;
-			i += 1;
+			i++;
 		}
 	}
 
-	push_to_left(line);
+	/* push_to_left(line, size); */
 
 	return (1);
 }
@@ -95,7 +93,6 @@ void push_to_right(int *line, int size)
 	}
 }
 
-
 /**
  * slide_to_right - It slides and merges an array of integers to the right.
  * @line: A pointer to the array of integers to manipulate.
@@ -104,35 +101,34 @@ void push_to_right(int *line, int size)
  */
 int slide_to_right(int *line, size_t size)
 {
-	size_t i, start, end, tmp;
+	int tmp = (int)size - 1;
+	int i = tmp - 1;
 
-	start = size - 1;
-	end = 0;
-
-	i = start - 1;
-	tmp = start;
-
-	while (line[i])
+	while (i >= 0)
 	{
-		while (i >= end && line[i] == 0)
-			i -= 1;
-		if (line[tmp] == line[i])
+		while (i - 1 > 0 && line[i] == 0)
+			i--;
+		if (line[tmp] == 0)
+		{
+			line[tmp] = line[i];
+			line[i] = 0;
+			i--;
+		}
+		else if (line[tmp] == line[i] && line[i] != 0)
 		{
 			line[tmp] = line[tmp] * 2;
 			line[i] = 0;
 			tmp = i;
-			while (tmp - 1 >= end && line[tmp] == 0)
-				tmp -= 1;
-			i = tmp - 1;
+			i--;
 		}
 		else
 		{
 			tmp = i;
-			i -= 1;
+			i--;
 		}
 	}
 
-	push_to_right(line, (int)size);
+	/* push_to_right(line, (int)size); */
 
 	return (1);
 }

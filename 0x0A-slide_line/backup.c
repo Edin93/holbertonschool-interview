@@ -1,84 +1,140 @@
 #include "slide_line.h"
 
 /**
- * slide_to_left: It slides and merges an array of integers to the left.
+ * push_to_left - push non-zero elements to the left edge of the array.
+ * @line: A pointer to the array of integers to manipulate.
+ * @size: The number of the array's elements.
+ * Return: nothing.
+ */
+void push_to_left(int *line, size_t size)
+{
+	int j = 0, z = 0;
+
+	while (j < (int)size)
+	{
+		if (line[j] != 0)
+			j++;
+		else
+		{
+			z = j;
+			while (z < (int)size && line[z] == 0)
+				z++;
+			line[j] = line[z];
+			line[z] = 0;
+		}
+	}
+}
+
+/**
+ * slide_to_left - It slides and merges an array of integers to the left.
  * @line: A pointer to the array of integers to manipulate.
  * @size: The number of the array's elements.
  * Return: 1 upon success, 0 otherwise.
  */
 int slide_to_left(int *line, size_t size)
 {
-	size_t i, start, end, tmp;
+	int tmp = 0;
+	int i = 1;
 
-	start = 0;
-	end = size - 1;
-
-	tmp = start;
-	i = start + 1;
-
-        while (line[i])
-        {
-		while (i <= end && line[i] == 0)
-                        i += 1;
-		if (line[tmp] == line[i])
+	while (i < (int)size)
+	{
+		while (i + 1 < (int)size && line[i] == 0)
+			i++;
+		if (line[tmp] == 0)
+		{
+			line[tmp] = line[i];
+			line[i] = 0;
+			i++;
+		}
+		else if (line[tmp] == line[i] && line[i] != 0)
 		{
 			line[tmp] = line[tmp] * 2;
 			line[i] = 0;
 			tmp = i;
-			while (tmp + 1 <= end && line[tmp] == 0)
-				tmp += 1;
-			i = tmp + 1;
+			i++;
 		}
 		else
 		{
 			tmp = i;
-			i += 1;
+			i++;
 		}
-        }
+	}
+
+	/* push_to_left(line, size); */
+
 	return (1);
 }
 
 /**
- * slide_to_right: It slides and merges an array of integers to the right.
+ * push_to_right - push non-zero elements to the right edge of the array.
+ * @line: A pointer to the array of integers to manipulate.
+ * @size: The number of the array's elements.
+ * Return: nothing.
+ */
+void push_to_right(int *line, int size)
+{
+	int j = size - 1, z = size - 1;
+
+	while (line[j])
+	{
+		if (line[j] != 0)
+			j--;
+		else
+		{
+			z = j;
+			while (line[z] && line[z] == 0)
+				z--;
+			if (line[z])
+			{
+				line[j] = line[z];
+				line[z] = 0;
+			}
+		}
+	}
+}
+
+/**
+ * slide_to_right - It slides and merges an array of integers to the right.
  * @line: A pointer to the array of integers to manipulate.
  * @size: The number of the array's elements.
  * Return: 1 upon success, 0 otherwise.
  */
 int slide_to_right(int *line, size_t size)
 {
-	size_t i, start, end, tmp;
+	int tmp = (int)size - 1;
+	int i = tmp - 1;
 
-	start = size - 1;
-	end = 0;
-
-	i = start - 1;
-	tmp = start;
-
-        while (line[i])
-        {
-                while (i >= end && line[i] == 0)
-                        i -= 1;
-		if (line[tmp] == line[i])
+	while (i >= 0)
+	{
+		while (i - 1 > 0 && line[i] == 0)
+			i--;
+		if (line[tmp] == 0)
+		{
+			line[tmp] = line[i];
+			line[i] = 0;
+			i--;
+		}
+		else if (line[tmp] == line[i] && line[i] != 0)
 		{
 			line[tmp] = line[tmp] * 2;
 			line[i] = 0;
 			tmp = i;
-			while (tmp - 1 >= end && line[tmp] == 0)
-				tmp -= 1;
-			i = tmp - 1;
+			i--;
 		}
 		else
 		{
 			tmp = i;
-			i -= 1;
+			i--;
 		}
 	}
+
+	/* push_to_right(line, (int)size); */
 
 	return (1);
 }
 
 /**
- * slide_line: It slides and merges an array of integers.
+ * slide_line - It slides and merges an array of integers.
  * @line: A pointer to the array of integers to manipulate.
  * @size: The number of the array's elements.
  * @direction: The direction to which the array should be merged,
@@ -88,9 +144,9 @@ int slide_to_right(int *line, size_t size)
 int slide_line(int *line, size_t size, int direction)
 {
 	if (!line)
-                return (0);
+		return (0);
 	if (direction != SLIDE_LEFT && direction != SLIDE_RIGHT)
-                return (0);
+		return (0);
 	if (size < 2)
 		return (1);
 	if (direction == 1)
