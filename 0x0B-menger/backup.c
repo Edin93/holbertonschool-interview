@@ -13,7 +13,7 @@ void menger(int level)
 {
 	int r, c, s;
 	int x, y;
-	char p;
+	char p[1];
 
 	if (level <= -1)
 		return;
@@ -24,19 +24,19 @@ void menger(int level)
 	{
 		for (c = 0; c < s;)
 		{
-			p = '#';
+			p[0] = '#';
 			x = r;
 			y = c++;
 			while (x > 0 || y > 0)
 			{
 				if (x % 3 == 1 && y % 3 == 1)
 				{
-					p = ' ';
+					p[0] = ' ';
 				}
 				x /= 3;
 				y /= 3;
 			}
-			putchar(p);
+			putchar(p[0]);
 		}
 		printf("\n");
 	}

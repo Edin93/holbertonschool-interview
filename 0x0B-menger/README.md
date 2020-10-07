@@ -1,4 +1,4 @@
-# x0B. Menger sponge
+# 0x0B. Menger sponge
 
 ## Requirements
 * Allowed editors: vi, vim, emacs
