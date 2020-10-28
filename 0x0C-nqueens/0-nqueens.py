@@ -18,7 +18,20 @@ def main():
     elif int(sys.argv[1]) < 4:
         print('N must be at least 4')
         exit(1)
-    print('success')
+    n = int(sys.argv[1])
+    sols = []
+    solved = False
+    i = 0
+    while (i < n and not solved and len(sols) != n):
+        for j in range(n):
+            p = [i, j]
+            sols.append(p)
+            for x in sols:
+                if p[0] == x[0] or p[1] == x[1]:
+                    sols.remove(p)
+                    i = 0
+        i += 1
+    return sols
 
-
-main()
+r = main()
+print(r)
