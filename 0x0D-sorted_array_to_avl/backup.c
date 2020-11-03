@@ -44,7 +44,7 @@ avl_t *create_node(int *array, avl_t *parent, int start, int end)
 avl_t *sorted_array_to_avl(int *array, size_t size)
 {
 	avl_t *root;
-	int n, middle, start, end;
+	int n, middle;
 
 	if (size <= 0 || !array)
 		return (NULL);
@@ -53,14 +53,12 @@ avl_t *sorted_array_to_avl(int *array, size_t size)
 	if (!root)
 		return (NULL);
 
-	start = 0;
-	end = size - 1;
-	middle = (start + end) / 2;
-	n = array[(start + end) / 2];
+	middle = (size / 2) - 1;
+	n = array[(size / 2) - 1];
 
 	root->parent = NULL;
 	root->n = n;
-	root->left = create_node(array, root, start, middle - 1);
-	root->right = create_node(array, root, middle + 1, end);
+	root->left = create_node(array, root, 0, middle - 1);
+	root->right = create_node(array, root, middle + 1, size - 1);
 	return (root);
 }
