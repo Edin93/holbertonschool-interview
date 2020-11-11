@@ -1,5 +1,5 @@
 #include <stdlib.h>
-#include "search.h"
+#include "../search.h"
 
 /**
  * free_skiplist - Deallocates a singly linked list

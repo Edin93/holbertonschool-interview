@@ -1,6 +1,6 @@
 #include <stdlib.h>
 #include <math.h>
-#include "search.h"
+#include "../search.h"
 
 /**
  * init_express - Initializes the express lane of the linked list
