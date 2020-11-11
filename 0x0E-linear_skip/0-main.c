@@ -17,7 +17,7 @@ int main(void)
 	skiplist_t *list, *res;
 	int array[] = {
 		0, 1, 2, 3, 4, 7, 12, 15, 18, 19, 23, 53, 61, 62, 76, 99,
-		200, 666
+		100, 200, 666
 	};
 	size_t size = sizeof(array) / sizeof(array[0]);
 
@@ -26,16 +26,18 @@ int main(void)
 
 	res =  linear_skip(list, 53);
 	printf("Found %d at index: %lu\n\n", 53, res->index);
+
 	res =  linear_skip(list, 2);
 	printf("Found %d at index: %lu\n\n", 2, res->index);
-	res =  linear_skip(list, 999);
-	printf("Found %d at index: %p\n\n", 999, (void *) res);
 
         res =  linear_skip(list, 200);
-        printf("Found %d at index: %p\n\n", 200, (void *) res);
+        printf("Found %d at index: %lu\n\n", 200, res->index);
 
 	res =  linear_skip(list, 666);
-	printf("Found %d at index: %p\n\n", 666, (void *) res);
+	printf("Found %d at index: %lu\n\n", 666, res->index);
+
+	res =  linear_skip(list, 999);
+	printf("Found %d at index: %p\n\n", 999, (void *) res);
 
 	free_skiplist(list);
 	return (EXIT_SUCCESS);
