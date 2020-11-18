@@ -8,14 +8,14 @@ if (process.argv.length === 3) {
   request(`${movieURL}/${movieID}`, function (err, res, body) {
     if (err) {
       console.log(err);
-    } else if (res) {
+    } else if (res.statusCode === 200) {
       const characters = JSON.parse(body).characters;
       for (let i = 0; i < characters.length; i++) {
         const personURL = characters[i];
         request(personURL, function (perror, pres, pbody) {
           if (perror) {
             console.log(perror);
-          } else if (pres) {
+          } else if (pres.statusCode === 200) {
             console.log(JSON.parse(pbody).name);
           }
         });
