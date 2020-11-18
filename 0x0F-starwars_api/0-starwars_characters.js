@@ -7,16 +7,15 @@ function displayNames () {
   if (process.argv.length === 3) {
     const movieURL = 'https://swapi-api.hbtn.io/api/films';
     const movieID = process.argv[2];
-    request(`${movieURL}/${movieID}`, function (error, response, body) {
+    request(`${movieURL}/${movieID}`, async function (error, response, body) {
       if (error) {
         console.log(error);
       } else if (response.statusCode === 200) {
         characters = JSON.parse(body).characters;
         for (let i = 0; i < characters.length; i++) {
-          (async function (personURL = characters[i]) {
-            const syncResponse = await syncRequest(personURL);
-            console.log(syncResponse);
-          })();
+          const personURL = characters[i];
+          const syncResponse = await syncRequest(personURL);
+          console.log(syncResponse);
         }
       }
     });
