@@ -22,7 +22,7 @@ def rain(walls: list) -> int:
     if end == 0:
         return 0
 
-    while walls[j] == 0:
+    while j < end and walls[j] == 0:
         j += 1
 
     i = j + 1
