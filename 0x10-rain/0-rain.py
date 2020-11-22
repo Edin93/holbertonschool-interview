@@ -14,11 +14,12 @@ def rain(walls: list) -> int:
     Returns:
         (int): the amount of rainwater retained, as an integer.
     """
-    end = len(walls)
-    rain = 0
     i = 0
     j = 0
-
+    rain = 0
+    if not isinstance(walls, list):
+        return 0
+    end = len(walls)
     if end == 0:
         return 0
 
