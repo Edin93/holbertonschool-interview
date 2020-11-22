@@ -4,7 +4,7 @@ Module for calculating water retention after it rains.
 """
 
 
-def rain(walls: list) -> int:
+def rain(walls):
     """
     Calculates how much water will be retained after it rains.
 
