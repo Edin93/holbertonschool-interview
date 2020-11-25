@@ -14,43 +14,25 @@ def rain(walls: list) -> int:
     Returns:
         (int): the amount of rainwater retained, as an integer.
     """
-    left = 0
-    right = 0
+    i = 0
+    j = 0
     rain = 0
-    if not isinstance(walls, list):
-        return 0
+    diff = 0
     end = len(walls)
-    if end == 0:
-        return 0
 
-    while left < 0 and walls[left] == 0:
-        left += 1
+    i = j + 1
+    separation = 0
 
-    right = left + 1
+    while i < end:
+        if walls[j] > walls[i]:
+            diff += walls[i]
+            separation += 1
+            i += 1
+        elif walls[j] <= walls[i] or i == end - 1:
+            rain += min(walls[i], walls[j]) * separation - diff
+            separation = 0
+            diff = 0
+            j = i
+            i += 1
 
-    while right < end:
-        if walls[left] > walls[right]:
-            rain += walls[left] - walls[right]
-            right += 1
-        else:
-            left = right
-            right += 1
     return rain
-
-    # while j < end and walls[j] == 0:
-    #     j += 1
-
-    # i = j + 1
-    # separation = 0
-
-    # while i < end:
-    #     if walls[i] == 0:
-    #         i += 1
-    #         separation += 1
-    #     else:
-    #         rain += min(walls[i], walls[j]) * separation
-    #         separation = 0
-    #         j = i
-    #         i += 1
-
-    # return rain
