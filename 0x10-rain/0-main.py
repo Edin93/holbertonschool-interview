@@ -5,6 +5,7 @@
 rain = __import__('0-rain').rain
 
 if __name__ == "__main__":
+
     walls = [0, 1, 0, 2, 0, 3, 0, 4]
     print('TEST 1 ===>  {}'.format(rain(walls)))
 
@@ -26,9 +27,12 @@ if __name__ == "__main__":
     walls = [6, 8, 1, 5, 2]
     print('TEST 7 ===>  {}'.format(rain(walls)))
 
-    walls = [0,1,0,2,1,0,1,3,2,1,2,1]
+    walls = [1, 0, 2, 1, 0, 1, 3, 2, 1, 2, 1]
     print('TEST 8 ===>  {}'.format(rain(walls)))
 
-    walls = [1, 0, 2, 1, 0, 1, 3, 2, 1, 2, 1]
-    print('TEST 9 ===>  {}'.format(rain(walls)))
+    walls = [0, 1, 0, 2, 0, 3, 0, 4, 1, 0, 1]
+    print("TEST 9 ===> {}".format(rain(walls)))
+
+    walls = [0,1,0,2,1,0,1,3,2,1,2,1]
+    print('TEST 10 ===>  {}'.format(rain(walls)))
 
