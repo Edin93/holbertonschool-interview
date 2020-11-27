@@ -22,9 +22,9 @@ def rain(walls: list) -> int:
     end = start + 1
     current_max = end
     while end < n:
-        while walls[start] > walls[end]:
+        while end < n and walls[start] > walls[end]:
             end += 1
-            if walls[current_max] <= walls[end]:
+            if end < n and walls[current_max] <= walls[end]:
                 current_max = end
         # print('START = ', start)
         # print('END = ', end)
