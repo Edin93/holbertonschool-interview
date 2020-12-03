@@ -22,14 +22,13 @@ void swap(int *array, int index_one, int index_two)
  * max_heapify - Convert a Heap into a max heap.
  *
  * @array: the array representation of the heap to max-heapify.
- * @array_size: the number of nodes in the heap.
+ * @size: the number of nodes in the heap.
  * @index: the index to heapify.
 */
-void max_heapify(int *array, int array_size, int index)
+void max_heapify(int *array, int size, int index)
 {
-	int largest, left, right, size;
+	int largest, left, right;
 
-	size = ((int) array_size);
 	right = 2 * index + 2;
 	left = 2 * index + 1;
 	largest = index;
@@ -59,10 +58,10 @@ void sift_down(int *array, int size, int start, int end)
 	int change, child, root, left, right;
 
 	root = start;
-	left = 2 * root + 1;
 
-	while (left <= end)
+	while (((2 * root) + 1) <= end)
 	{
+		left = 2 * root + 1;
 		child = left;
 		change = root;
 
@@ -77,6 +76,8 @@ void sift_down(int *array, int size, int start, int end)
 			print_array(array, size);
 			root = change;
 		}
+		else
+			return;
 	}
 }
 
@@ -88,18 +89,22 @@ void sift_down(int *array, int size, int start, int end)
 */
 void heap_sort(int *array, size_t size)
 {
-	int i, end;
+	int i, end, array_size;
 
-	i = ((int) size - 1);
-	end = i;
+	array_size = ((int) size);
+	i = array_size - 1;
 
 	for (; i >= 0; i--)
-		max_heapify(array, size, i);
+		max_heapify(array, array_size, i);
+
+	end = array_size - 1;
+
 	while (end > 0)
 	{
 		swap(array, 0, end);
+		print_array(array, size);
 		end = end - 1;
-		sift_down(array, ((int) size), 0, end);
+		sift_down(array, ((int) array_size), 0, end);
 	}
 }
 
