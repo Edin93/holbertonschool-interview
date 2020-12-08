@@ -40,22 +40,23 @@ void print_array(int *array, size_t start, size_t end)
 */
 int binary_search(int *array, int start, int end, int value)
 {
-	int mid = (start + end) / 2;
+	int mid = start + ((end - start) / 2);
 
-	if (start > end)
-		return (-1);
+	if (end >= start)
+	{
+		print_array(array, start, end);
 
-	print_array(array, start, end);
+		if (array[mid] == value && end - start <= 1)
+			return (mid);
 
-	if (array[mid] == value && ((end - start == 0) || (end - 1 == start)))
-		return (mid);
-
-	if (array[mid] > value)
-		return (binary_search(array, start, mid - 1, value));
-	else if (array[mid] < value)
-		return (binary_search(array, mid + 1, end, value));
-	else
-		return (binary_search(array, start, mid, value));
+		if (array[mid] > value)
+			return (binary_search(array, start, mid - 1, value));
+		else if (array[mid] < value)
+			return (binary_search(array, mid + 1, end, value));
+		else
+			return (binary_search(array, start, mid, value));
+	}
+	return (-1);
 }
 
 /**
