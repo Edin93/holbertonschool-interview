@@ -40,13 +40,13 @@ void print_array(int *array, size_t start, size_t end)
 */
 int binary_search(int *array, int start, int end, int value)
 {
-	int mid = start + ((end - start) / 2);
+	int mid = (start + end) / 2;
 
 	if (end >= start)
 	{
 		print_array(array, start, end);
 
-		if (array[mid] == value && end - start <= 1)
+		if (array[mid] == value && end == start)
 			return (mid);
 
 		if (array[mid] > value)
