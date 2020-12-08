@@ -3,32 +3,62 @@
 #include <stdlib.h>
 #include "search_algos.h"
 
-void print_int(int n)
-{
-	int div = 1;
-	int tmp = 0;
-
-	while (n / (div * 10) > 1)
-		div *= 10;
-	while (div > 1)
-	{
-		tmp = n / div;
-		putchar(tmp + "0");
-		n = n - tmp;
-		div = div / 10;
-	}
-}
-
+/**
+ * print_array - Prints an array of integers.
+ *
+ * @array: A pointer to the first element of the array.
+ * @start: The index of the first element to print in the array.
+ * @end: the index of the last element to print in the array.
+*/
 void print_array(int *array, size_t start, size_t end)
 {
 	size_t i = start;
 
-	write(1, "Searching in array: ", 1024);
+	printf("Searching in array: ");
 	while (i <= end)
-		print_int(array[i]);
+	{
+		printf("%d", array[i]);
+		if (i != end)
+			printf(", ");
+		else
+			printf("\n");
+		i += 1;
+	}
 }
 
-/*
+
+/**
+ * binary_search - Searches for a value in a sorted array of integers.
+ *
+ * @array: A pointer to the first element of the sorted (ascending order)
+ * array to search in.
+ * @start: the first index of the array.
+ * @end: the last index of the array.
+ * @value: the value to search for.
+ *
+ * Return: the index of the value if it exists. otherwise -1.
+*/
+int binary_search(int *array, int start, int end, int value)
+{
+	int mid = (start + end) / 2;
+
+	if (start > end)
+		return (-1);
+
+	print_array(array, start, end);
+
+	if (array[mid] == value && ((end - start == 0) || (end - 1 == start)))
+		return (mid);
+
+	if (array[mid] > value)
+		return (binary_search(array, start, mid - 1, value));
+	else if (array[mid] < value)
+		return (binary_search(array, mid + 1, end, value));
+	else
+		return (binary_search(array, start, mid, value));
+}
+
+/**
  * advanced_binary - Searches for a value in a sorted array of integers.
  *
  * @array: A pointer to the first element of the sorted (ascending order)
@@ -40,13 +70,12 @@ void print_array(int *array, size_t start, size_t end)
 */
 int advanced_binary(int *array, size_t size, int value)
 {
-	size_t i = 0;
+	int result, end;
 
-	printf("size = %zu\n", size);
-	printf("value = %d\n", value);
-
-	for (i = 0; i < size; i++)
-		print_int(array[i]);
-
-	return (0);
+	if (!array)
+		return (-1);
+	end = ((int)size) - 1;
+	result = binary_search(array, 0, end, value);
+	return (result);
 }
+
