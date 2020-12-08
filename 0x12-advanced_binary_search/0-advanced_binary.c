@@ -44,17 +44,15 @@ int binary_search(int *array, int start, int end, int value)
 
 	if (end >= start)
 	{
-		print_array(array, start, end);
-
 		if (array[mid] == value && end == start)
 			return (mid);
 
-		if (array[mid] > value)
-			return (binary_search(array, start, mid - 1, value));
-		else if (array[mid] < value)
-			return (binary_search(array, mid + 1, end, value));
-		else
+		print_array(array, start, end);
+
+		if (array[mid] >= value)
 			return (binary_search(array, start, mid, value));
+		else
+			return (binary_search(array, mid + 1, end, value));
 	}
 	return (-1);
 }
